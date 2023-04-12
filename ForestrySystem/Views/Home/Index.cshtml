@@ -1,8 +1,42 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		@{
+			ViewData["Title"] = "Home Page";
+		}
+	</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/ForestrySystem.styles.css" asp-append-version="true" />
+</head>
+<body>
+	<header>
+		<div class="banner">
+			<img src="~/images/banner.jpg" alt="Banner Image">
+		</div>
+	</header>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+	<main>
+		<section class="latest-news">
+			<h2>Latest News</h2>
+			<ul>
+				<li>
+					<a href="#">News Title 1</a>
+					<p>News summary here...</p>
+				</li>
+				<li>
+					<a href="#">News Title 2</a>
+					<p>News summary here...</p>
+				</li>
+				<li>
+					<a href="#">News Title 3</a>
+					<p>News summary here...</p>
+				</li>
+			</ul>
+		</section>
+	</main>
+</body>
+</html>
