@@ -9,34 +9,64 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/js/site.js" asp-append-version="true" />
 	<link rel="stylesheet" href="~/ForestrySystem.styles.css" asp-append-version="true" />
 </head>
 <body>
 	<header>
-		<div class="banner">
-			<img src="~/images/banner.jpg" alt="Banner Image">
-		</div>
-	</header>
-
-	<main>
-		<section class="latest-news">
-			<h2>Latest News</h2>
-			<ul>
-				<li>
-					<a href="#">News Title 1</a>
-					<p>News summary here...</p>
-				</li>
-				<li>
-					<a href="#">News Title 2</a>
-					<p>News summary here...</p>
-				</li>
-				<li>
-					<a href="#">News Title 3</a>
-					<p>News summary here...</p>
-				</li>
-			</ul>
+		<!-- Banner Section -->
+		<section id="banner">
+					<div class="mySlides">
+						<img src="~/images/banner-dgs-novo-panicharevo.jpg" class="d-block w-100" alt="Banner 1">
+						<div>
+							<h3>Caption for Banner 1</h3>
+						</div>
+					</div>
+					<div class="mySlides">
+						<img src="~/images/forest-three.jpg" class="d-block w-100" alt="Banner 2">
+						<div class="carousel-caption">
+							<h3>Caption for Banner 2</h3>
+						</div>
+					</div>
+					<div class="mySlides">
+						<img src="~/images/forest-four.jpg" class="d-block w-100" alt="Banner 3">
+						<div class="carousel-caption">
+							<h3>Caption for Banner 3</h3>
+						</div>
+					</div>
+					<a class="prev" onclick="plusSlides(-1)">❮</a>
+					<a class="next" onclick="plusSlides(1)">❯</a>
+			
+			
 		</section>
-	</main>
+
+		<!-- Information section -->
+		<section class="information">
+			<div class="container">
+				<h2>About Us</h2>
+				<div class="row">
+					<div class="col-md-4">
+						<i class="fas fa-tree fa-3x"></i>
+						<h3>Our Mission</h3>
+						<p>Our mission is to promote sustainable forestry practices and conservation of natural resources.</p>
+					</div>
+					<div class="col-md-4">
+						<i class="fas fa-users fa-3x"></i>
+						<h3>Our Team</h3>
+						<p>We have a team of experienced forestry professionals who are passionate about their work.</p>
+					</div>
+					<div class="col-md-4">
+						<i class="fas fa-leaf fa-3x"></i>
+						<h3>Our Services</h3>
+						<p>We offer a range of services including forestry consulting, tree planting, and forest management.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+<</header>/>
 </body>
 </html>

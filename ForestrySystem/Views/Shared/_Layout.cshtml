@@ -10,9 +10,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="fill navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow">
             <div class="container-fluid">
-                <img src="~/images/logo.jpg" alt="Logo Image" style="width:100px;height:70px;">
+                <img src="~/images/logo.jpg" alt="Logo Image" style="width:300px;height:70px;">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,34 +20,30 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="Index">Новини и Събития</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Events" asp-action="Index">Новини и Събития</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ForestryInstitutions" asp-action="Index">Институции</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="ForestryInstitutions" asp-action="Index">Институции</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PurposeOfCutOffs" asp-action="Index">Регулации</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="PurposeOfCutOffs" asp-action="Index">Регулации</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <partial name="_LoginPartial" />
         </nav>
+     
     </header>
-    <div class="container">
+    <div>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - ForestrySystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
