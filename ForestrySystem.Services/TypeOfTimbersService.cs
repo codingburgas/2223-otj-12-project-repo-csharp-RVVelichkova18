@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForestrySystem.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,12 @@ namespace ForestrySystem.Services
 {
 	internal class TypeOfTimbersService
 	{
+		private ApplicationDbContext _context;
+
+		public TypeOfTimbersService(ApplicationDbContext context)
+		{
+			_context = context;
+		}
+
 	}
 }

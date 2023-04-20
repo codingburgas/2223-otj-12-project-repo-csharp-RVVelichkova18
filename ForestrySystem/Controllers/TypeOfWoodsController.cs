@@ -17,11 +17,11 @@ namespace ForestrySystem.Controllers
 
 	public class TypeOfWoodsController : Controller
 	{
-		private readonly ApplicationDbContext _context;
+		private readonly TypeOfWoodsService _typeOfWoodService;
 
-		public TypeOfWoodsController(TypeOfWoodsService context)
+		public TypeOfWoodsController(TypeOfWoodsService typeOfWoodService)
 		{
-			_context = context;
+			_typeOfWoodService = typeOfWoodService;
 		}
 
 
@@ -29,39 +29,20 @@ namespace ForestrySystem.Controllers
 		public async Task<IActionResult> Index(string SearchString, string sortOrder)
 		{
 			ViewData["CurrentFilter"] = SearchString;
-			var woods = from w in _context.WoodTypes
-						select w;
-			if (!String.IsNullOrEmpty(SearchString))
-			{
-				woods = woods.Where(x => x.Origin.ToString().Contains(SearchString));
-			}
+		
 			return View(woods);
-
-			ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-			ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-			switch (sortOrder)
-			{
-				case "name_desc":
-					woods = woods.OrderByDescending(s => s.SpeciesName);
-					break;
-				case "Date":
-					woods = woods.OrderBy(s => s.YearOfLogging);
-					break;
-			}
-			return View(await woods.AsNoTracking().ToListAsync());
 		}
 
 		// GET: TypeOfWoods/Details/5
 	
-		public async Task<IActionResult> Details(int? id)
+		public async Task<IActionResult> Details(int id)
 		{
-			if (id == null || _context.WoodTypes == null)
+			if (id == null)
 			{
 				return NotFound();
 			}
 
-			var typeOfWood = await _context.WoodTypes
-				.FirstOrDefaultAsync(m => m.Id == id);
+			var typeOfWood = await _typeOfWoodService.GetTypeOfWoodById(id);
 			if (typeOfWood == null)
 			{
 				return NotFound();
@@ -72,10 +53,7 @@ namespace ForestrySystem.Controllers
 
 		// GET: TypeOfWoods/Create
 		[Authorize(Roles = "Expert")]
-		public IActionResult Create()
-		{
-			return View();
-		}
+		public IActionResult Create() => View();
 
 		// POST: TypeOfWoods/Create
 		// To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -86,10 +64,11 @@ namespace ForestrySystem.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_context.Add(typeOfWood);
-				await _context.SaveChangesAsync();
+				//_context.Add(typeOfWood);
+				//await _context.SaveChangesAsync();
 				return RedirectToAction(nameof(Index));
 			}
+			// ako vsichko e minalo uspeshno vrushame true ako bugva false 
 			return View(typeOfWood);
 		}
 
@@ -101,8 +80,8 @@ namespace ForestrySystem.Controllers
 			{
 				return NotFound();
 			}
-
-			var typeOfWood = await _context.WoodTypes.FindAsync(id);
+			//transfer to service
+			//var typeOfWood = await _context.WoodTypes.FindAsync(id);
 			if (typeOfWood == null)
 			{
 				return NotFound();
@@ -126,8 +105,10 @@ namespace ForestrySystem.Controllers
 			{
 				try
 				{
-					_context.Update(typeOfWood);
-					await _context.SaveChangesAsync();
+					//proverqvame dali go ima ako ima null vrushtame greshka 
+					//_context.Update(typeOfWood);
+					//await _context.SaveChangesAsync();
+					//tuk izvikvame service
 				}
 				catch (DbUpdateConcurrencyException)
 				{
@@ -147,15 +128,15 @@ namespace ForestrySystem.Controllers
 
 		// GET: TypeOfWoods/Delete/5
 		[Authorize(Roles = "Expert")]
-		public async Task<IActionResult> Delete(int? id)
+		public async Task<IActionResult> Delete(int id)
 		{
 			if (id == null || _context.WoodTypes == null)
 			{
 				return NotFound();
 			}
 
-			var typeOfWood = await _context.WoodTypes
-				.FirstOrDefaultAsync(m => m.Id == id);
+			var typeOfWood = await _typeOfWoodService.GetTypeOfWoodById(id);
+			
 			if (typeOfWood == null)
 			{
 				return NotFound();
@@ -173,19 +154,14 @@ namespace ForestrySystem.Controllers
 			{
 				return Problem("Entity set 'ApplicationDbContext.WoodTypes'  is null.");
 			}
-			var typeOfWood = await _context.WoodTypes.FindAsync(id);
+			//namirame po ID var typeOfWood = await _context.WoodTypes.FindAsync(id);
 			if (typeOfWood != null)
 			{
-				_context.WoodTypes.Remove(typeOfWood);
+			//	_context.WoodTypes.Remove(typeOfWood);
 			}
 
 			await _context.SaveChangesAsync();
 			return RedirectToAction(nameof(Index));
-		}
-
-		private bool TypeOfWoodExists(int id)
-		{
-			return _context.WoodTypes.Any(e => e.Id == id);
 		}
 	}
 }
