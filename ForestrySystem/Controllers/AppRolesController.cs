@@ -27,7 +27,6 @@ namespace ForestrySystem.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create(IdentityRole model)
 		{
-			//No Dupes
 			if (!_roleManager.RoleExistsAsync(model.Name).GetAwaiter().GetResult())
 			{
 				_roleManager.CreateAsync(new IdentityRole(model.Name)).GetAwaiter().GetResult();

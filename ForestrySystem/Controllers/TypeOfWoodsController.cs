@@ -10,6 +10,7 @@ using ForestrySystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using Microsoft.Data.SqlClient;
+using ForestrySystem.Services;
 
 namespace ForestrySystem.Controllers
 {
@@ -18,10 +19,11 @@ namespace ForestrySystem.Controllers
 	{
 		private readonly ApplicationDbContext _context;
 
-		public TypeOfWoodsController(ApplicationDbContext context)
+		public TypeOfWoodsController(TypeOfWoodsService context)
 		{
 			_context = context;
 		}
+
 
 		// GET: TypeOfWoods
 		public async Task<IActionResult> Index(string SearchString, string sortOrder)
@@ -50,6 +52,7 @@ namespace ForestrySystem.Controllers
 		}
 
 		// GET: TypeOfWoods/Details/5
+	
 		public async Task<IActionResult> Details(int? id)
 		{
 			if (id == null || _context.WoodTypes == null)
