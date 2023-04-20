@@ -2,6 +2,7 @@ using ForestrySystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ForestrySystem.Models;
+using ForestrySystem.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite
 builder.Services.AddDefaultIdentity<AppUser>().AddDefaultTokenProviders().
 	 AddRoles<IdentityRole>()
 	.AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddScoped<UserRolesService>();	
+
+
+
+
+
 
 var app = builder.Build();
 
