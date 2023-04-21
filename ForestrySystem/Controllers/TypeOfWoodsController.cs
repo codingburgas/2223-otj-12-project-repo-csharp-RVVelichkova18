@@ -80,14 +80,14 @@ namespace ForestrySystem.Controllers
 
 		// GET: TypeOfWoods/Edit/5
 		[Authorize(Roles = "Expert,Admin")]
-		public async Task<IActionResult> Edit(int? id)
+		public async Task<IActionResult> Edit(int id)
 		{
 			if (id == null || _context.WoodTypes == null)
 			{
 				return NotFound();
 			}
 			//transfer to service
-			var typeOfWood = await _context.WoodTypes.FindAsync(id);
+			var typeOfWood = await _typeOfWoodService.GetTypeOfWoodById(id);
 			if (typeOfWood == null)
 			{
 				return NotFound();
@@ -110,30 +110,31 @@ namespace ForestrySystem.Controllers
 			if (ModelState.IsValid)
 			{
 				try
+                {
+                    //proverqvame dali go ima ako ima null vrushtame greshka 
+                    await _typeOfWoodService.UpdateTypeOfWood(typeOfWood);
+                    //tuk izvikvame service
+                }
+                catch (DbUpdateConcurrencyException)
 				{
-					//proverqvame dali go ima ako ima null vrushtame greshka 
-					_context.Update(typeOfWood);
-					await _context.SaveChangesAsync();
-					//tuk izvikvame service
-				}
-				catch (DbUpdateConcurrencyException)
-				{
-					//if (!TypeOfWoodExists(typeOfWood.Id))
-					//{
-					//	return NotFound();
-					//}
-					//else
-					//{
-					//	throw;
-					//}
+					if (!_typeOfWoodService.TypeOfWoodExists(typeOfWood.Id))
+					{
+						return NotFound();
+					}
+					else
+					{
+						throw;
+					}
 				}
 				return RedirectToAction(nameof(Index));
 			}
 			return View(typeOfWood);
 		}
 
-		// GET: TypeOfWoods/Delete/5
-		[Authorize(Roles = "Expert,Admin")]
+        
+
+        // GET: TypeOfWoods/Delete/5
+        [Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			if (id == null || _context.WoodTypes == null)
@@ -155,20 +156,16 @@ namespace ForestrySystem.Controllers
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> DeleteConfirmed(int id)
-		{
-			if (_context.WoodTypes == null)
-			{
-				return Problem("Entity set 'ApplicationDbContext.WoodTypes'  is null.");
-			}
-			//namirame po ID
-			var typeOfWood = await _context.WoodTypes.FindAsync(id);
-			if (typeOfWood != null)
-			{
-				_context.WoodTypes.Remove(typeOfWood);
-			}
+        {
+            if (_context.WoodTypes == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.WoodTypes'  is null.");
+            }
+            //namirame po ID
+            await _typeOfWoodService.DeleteTypeOfWood(id);
+            return RedirectToAction(nameof(Index));
+        }
 
-			await _context.SaveChangesAsync();
-			return RedirectToAction(nameof(Index));
-		}
-	}
+        
+    }
 }

@@ -16,10 +16,12 @@ builder.Services.AddDefaultIdentity<AppUser>().AddDefaultTokenProviders().
 	 AddRoles<IdentityRole>()
 	.AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<UserRolesService>();
-builder.Services.AddScoped<UserRolesService>();
 builder.Services.AddScoped<CategoryOfTimbersService>();
 builder.Services.AddScoped<EventsService>();
 builder.Services.AddScoped<ForestryInstitutionsService>();
+builder.Services.AddScoped<PurposeOfCutOffsService>();
+builder.Services.AddScoped<TypeOfTimbersService>();
+builder.Services.AddScoped<TypeOfWoodsService>();
 
 
 

@@ -10,6 +10,62 @@
     <a asp-action="Create">Create New</a>
 </p>
 
+<head>
+    <link href="https: //maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type-"text /css" rel="stylesheet" />
+    <link href="https: //cdjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.css" type="text/css" rel="stylesheet" />
+
+</head>
+<div class="container">
+    <div class="row">
+
+        <div class="col-xs-12">
+            <br />
+            <div id="bootstrapModalFullCalendar">
+                <div />
+            </div>
+        </div>
+    </div>
+    <div id="fullcalModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span> <span class="sr-only">close</span></button>
+                    <h4 id="modalTitle" class="modal-title"></h4>
+
+                </div>
+
+                <div id="modalBody" class="modal-body"></div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    <a class="btn btn-primary" id="eventUrl" target="blank">Event Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#bootstrapModalFullcalendar').fullcalendar({
+            header: {
+                left: '';
+                center: 'prev title next',
+                right: '';
+            },
+            eventClick: function (event, jsEvent, view) {
+                $('#modalTitle').html(event.name):
+                $('#modalBody').html(event.purpose);
+                $('#eventUrl').attr('href', event.url):
+                $('#fullCalModal').modal():
+                return false;
+            },
+        }); events: '@Url.Action("findall", "events")'
+    });
+</script>
+
 <table class="table">
     <thead>
         <tr>
@@ -29,26 +85,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Purpose)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FIEventRefID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Purpose)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FIEventRefID)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

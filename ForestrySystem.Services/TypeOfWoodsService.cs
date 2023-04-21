@@ -33,7 +33,25 @@ namespace ForestrySystem.Services
 			}
 			return woods;
 		}
+        public async Task UpdateTypeOfWood(TypeOfWood typeOfWood)
+        {
+            _context.Update(typeOfWood);
+            await _context.SaveChangesAsync();
+        }
+        public async Task DeleteTypeOfWood(int id)
+        {
+            var typeOfWood = await _context.WoodTypes.FindAsync(id);
+            if (typeOfWood != null)
+            {
+                _context.WoodTypes.Remove(typeOfWood);
+            }
 
+            await _context.SaveChangesAsync();
+        }
 
-	}
+		public bool TypeOfWoodExists(int id)
+		{
+			return _context.WoodTypes.Any(e => e.Id == id);
+        }
+    }
 }

@@ -41,20 +41,21 @@ namespace ForestrySystem.Controllers
 		[Route("findall")]
 		public async Task<IActionResult> FindAllEvents()
 		{
-			var events = _context.Events.Select(events => new
+			var events = _context.Events.Select(e => new
 			{
-				id = events.Id,
-				name = events.Name,
-				date = events.Date.ToString("dd/MM/yyyy"),
-				status = events.Status,
-				purpose = events.Purpose,
-				institution = events.Institutions,
+				id = e.Id,
+				name = e.Name,
+				date = e.Date.ToString("dd/MM/yyyy"),
+				status = e.Status,
+				purpose = e.Purpose,
+				institution = e.Institutions,
 			}).ToList();
 			return new JsonResult(events);
 		}
 
-		// GET: Events/Details/5
-		public async Task<IActionResult> Details(int? id)
+        // GET: Events/Details/5
+        [Route("details")]
+        public async Task<IActionResult> Details(int? id)
 		{
 			if (id == null || _context.Events == null)
 			{
@@ -74,7 +75,9 @@ namespace ForestrySystem.Controllers
 
 		// GET: Events/Create
 		[Authorize(Roles = "Expert,Admin")]
-		public IActionResult Create()
+		[HttpGet]
+        [Route("create")]
+        public IActionResult Create()
 		{
 			return View();
 		}
@@ -84,7 +87,8 @@ namespace ForestrySystem.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("Id,Name,Date,Status,Purpose,FIEventRefID")] Events events)
+        [Route("create")]
+        public async Task<IActionResult> Create([Bind("Id,Name,Date,Status,Purpose,FIEventRefID")] Events events)
 		{
 			if (ModelState.IsValid)
 			{
@@ -98,7 +102,9 @@ namespace ForestrySystem.Controllers
 
 		// GET: Events/Edit/5
 		[Authorize(Roles = "Expert,Admin")]
-		public async Task<IActionResult> Edit(int? id)
+		[HttpGet]
+        [Route("edit")]
+        public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null || _context.Events == null)
 			{
@@ -119,7 +125,8 @@ namespace ForestrySystem.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[Authorize(Roles = "Expert,Admin")]
-		public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Date,Status,Purpose,FIEventRefID")] Events events)
+        [Route("edit")]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Date,Status,Purpose,FIEventRefID")] Events events)
 		{
 			if (id != events.Id)
 			{
@@ -152,7 +159,9 @@ namespace ForestrySystem.Controllers
 
 		// GET: Events/Delete/5
 		[Authorize(Roles = "Expert,Admin")]
-		public async Task<IActionResult> Delete(int? id)
+		[HttpGet]
+        [Route("delete")]
+        public async Task<IActionResult> Delete(int? id)
 		{
 			if (id == null || _context.Events == null)
 			{
@@ -171,7 +180,8 @@ namespace ForestrySystem.Controllers
 		// POST: Events/Delete/5
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> DeleteConfirmed(int id)
+        [Route("delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			if (_context.Events == null)
 			{
