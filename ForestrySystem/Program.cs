@@ -22,6 +22,7 @@ builder.Services.AddScoped<ForestryInstitutionsService>();
 builder.Services.AddScoped<PurposeOfCutOffsService>();
 builder.Services.AddScoped<TypeOfTimbersService>();
 builder.Services.AddScoped<TypeOfWoodsService>();
+builder.Services.AddScoped<ImagesService>();
 
 
 

@@ -20,6 +20,15 @@ body {
     position: relative;
     margin: auto;
 }
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color:aliceblue;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial;
+    font-size:30px;
+}
 
 /* Next & previous buttons */
 .prev, .next {

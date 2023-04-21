@@ -21,21 +21,15 @@
 		<section id="banner">
 					<div class="mySlides">
 						<img src="~/images/banner-dgs-novo-panicharevo.jpg" class="d-block w-100" alt="Banner 1">
-						<div>
-							<h3>Caption for Banner 1</h3>
-						</div>
+						<div class="centered">Добре дошли в GreenVision!</div>
 					</div>
 					<div class="mySlides">
 						<img src="~/images/forest-three.jpg" class="d-block w-100" alt="Banner 2">
-						<div class="carousel-caption">
-							<h3>Caption for Banner 2</h3>
-						</div>
+						<div class="centered">Добре дошли в GreenVision!</div>
 					</div>
 					<div class="mySlides">
 						<img src="~/images/forest-four.jpg" class="d-block w-100" alt="Banner 3">
-						<div class="carousel-caption">
-							<h3>Caption for Banner 3</h3>
-						</div>
+						<div class="centered">Добре дошли в GreenVision!</div>
 					</div>
 					<a class="prev" onclick="plusSlides(-1)">❮</a>
 					<a class="next" onclick="plusSlides(1)">❯</a>
@@ -46,27 +40,39 @@
 		<!-- Information section -->
 		<section class="information">
 			<div class="container">
-				<h2>About Us</h2>
+				<h2>Информация</h2>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<i class="fas fa-tree fa-3x"></i>
-						<h3>Our Mission</h3>
-						<p>Our mission is to promote sustainable forestry practices and conservation of natural resources.</p>
+						<h3>Цели</h3>
+						<p>Главната функция на платформата е да определя какви видове и какво количество сеч е допустимо спрямо площта и обема на горските площи и какъв процент от тях да бъде разпределен за продажба на складове и цехове в страната, за износ и за местните потребители. </p>
 					</div>
-					<div class="col-md-4">
-						<i class="fas fa-users fa-3x"></i>
-						<h3>Our Team</h3>
-						<p>We have a team of experienced forestry professionals who are passionate about their work.</p>
-					</div>
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<i class="fas fa-leaf fa-3x"></i>
-						<h3>Our Services</h3>
-						<p>We offer a range of services including forestry consulting, tree planting, and forest management.</p>
+						<h3>Аудитория</h3>
+						<p>Проектът е предназначен за организации и лица, свързани с горското стопанство и управлението на зелените зони в страната. Това могат да бъдат горски инженери, горски стопани, дърводобивни дружества, административни институции и други заинтересовани граждани.</p>
 					</div>
 				</div>
 			</div>
 		</section>
+		<h2>Добавете снимка на зелени зони, която да публикуваме на нашата страница</h2>
+		<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<form asp-action="Create" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<label  class="form-label"></label>
+						<input  type="file" name="file" class="form-control" multiple />
+					</div>
+
+					<div class="form-group">
+						<input type="submit" value="Прикачи" class="btn btn-primary" />
+					</div>
+				</form>
+			</div>
+		</div>
+		</div>
 		
-<</header>/>
+</header>
 </body>
 </html>
