@@ -31,5 +31,9 @@ namespace ForestrySystem.Services
 		public async Task<List<string>> GetUserRolesAsync(AppUser user)
 			=> new List<string>(await _userManager.GetRolesAsync(user));
 
+		//public async Task<List<AppUser>> FindByIdAsync(string userId)
+		//{
+		//	return new List<AppUser>(await _userManager.FindByIdAsync(userId));
+		//}
 	}
 }

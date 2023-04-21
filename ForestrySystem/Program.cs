@@ -15,9 +15,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite
 builder.Services.AddDefaultIdentity<AppUser>().AddDefaultTokenProviders().
 	 AddRoles<IdentityRole>()
 	.AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddScoped<UserRolesService>();	
-
-
+builder.Services.AddScoped<UserRolesService>();
+builder.Services.AddScoped<UserRolesService>();
+builder.Services.AddScoped<CategoryOfTimbersService>();
 
 
 

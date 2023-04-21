@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ForestrySystem.Data;
 using ForestrySystem.Models;
 using Microsoft.AspNetCore.Authorization;
+using ForestrySystem.Services;
 
 namespace ForestrySystem.Controllers
 {
@@ -15,10 +16,12 @@ namespace ForestrySystem.Controllers
 	public class CategoryOfTimbersController : Controller
 	{
 		private readonly ApplicationDbContext _context;
+		private readonly CategoryOfTimbersService _categoryOfTimberService;
 
-		public CategoryOfTimbersController(ApplicationDbContext context)
+		public CategoryOfTimbersController(ApplicationDbContext context, CategoryOfTimbersService categoryOfTimberService)
 		{
 			_context = context;
+			_categoryOfTimberService = categoryOfTimberService;
 		}
 
 		// GET: CategoryOfTimbers
@@ -26,15 +29,16 @@ namespace ForestrySystem.Controllers
 		{
 			//return View(await _context.CategoryOfTimber.ToListAsync());
 			ViewData["CurrentFilter"] = SearchString;
-			var categs = from cats in _context.CategoryOfTimber
-						 select cats;
+			IQueryable<CategoryOfTimber> categs = _categoryOfTimberService.GetCategories();
 
 			if (!String.IsNullOrEmpty(SearchString))
 			{
-				categs = categs.Where(x => x.CategoryName.ToString().Contains(SearchString));
+				categs = _categoryOfTimberService.GetCategoriesByName(SearchString, categs);
 			}
 			return View(categs);
 		}
+
+		
 
 		// GET: CategoryOfTimbers/Details/5
 		public async Task<IActionResult> Details(int? id)
@@ -44,8 +48,7 @@ namespace ForestrySystem.Controllers
 				return NotFound();
 			}
 
-			var categoryOfTimber = await _context.CategoryOfTimber
-				.FirstOrDefaultAsync(m => m.Id == id);
+			CategoryOfTimber? categoryOfTimber = await _categoryOfTimberService.GetCategoryOfTimberDeatils(id);
 			if (categoryOfTimber == null)
 			{
 				return NotFound();
@@ -54,16 +57,16 @@ namespace ForestrySystem.Controllers
 			return View(categoryOfTimber);
 		}
 
+		
+
 		// GET: CategoryOfTimbers/Create
-		[Authorize(Roles = "Expert")]
+		[Authorize(Roles = "Expert,Admin")]
 		public IActionResult Create()
 		{
 			return View();
 		}
 
 		// POST: CategoryOfTimbers/Create
-		// To protect from overposting attacks, enable the specific properties you want to bind to.
-		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[Authorize(Roles = "Expert")]
@@ -71,15 +74,16 @@ namespace ForestrySystem.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_context.Add(categoryOfTimber);
-				await _context.SaveChangesAsync();
+				await _categoryOfTimberService.CreateCategoryOfTimber(categoryOfTimber);
 				return RedirectToAction(nameof(Index));
 			}
 			return View(categoryOfTimber);
 		}
 
+		
+
 		// GET: CategoryOfTimbers/Edit/5
-		[Authorize(Roles = "Expert")]
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null || _context.CategoryOfTimber == null)
@@ -87,13 +91,15 @@ namespace ForestrySystem.Controllers
 				return NotFound();
 			}
 
-			var categoryOfTimber = await _context.CategoryOfTimber.FindAsync(id);
+			CategoryOfTimber? categoryOfTimber = await _categoryOfTimberService.GetCategoryOfTimber(id);
 			if (categoryOfTimber == null)
 			{
 				return NotFound();
 			}
 			return View(categoryOfTimber);
 		}
+
+		
 
 		// POST: CategoryOfTimbers/Edit/5
 		// To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -112,12 +118,11 @@ namespace ForestrySystem.Controllers
 			{
 				try
 				{
-					_context.Update(categoryOfTimber);
-					await _context.SaveChangesAsync();
+					await _categoryOfTimberService.UpdateCategoryOfTimber(categoryOfTimber);
 				}
 				catch (DbUpdateConcurrencyException)
 				{
-					if (!CategoryOfTimberExists(categoryOfTimber.Id))
+					if (!_categoryOfTimberService.CategoryOfTimberExists(categoryOfTimber.Id))
 					{
 						return NotFound();
 					}
@@ -131,6 +136,8 @@ namespace ForestrySystem.Controllers
 			return View(categoryOfTimber);
 		}
 
+		
+
 		// GET: CategoryOfTimbers/Delete/5
 		[Authorize(Roles = "Expert")]
 		public async Task<IActionResult> Delete(int? id)
@@ -140,8 +147,7 @@ namespace ForestrySystem.Controllers
 				return NotFound();
 			}
 
-			var categoryOfTimber = await _context.CategoryOfTimber
-				.FirstOrDefaultAsync(m => m.Id == id);
+			var categoryOfTimber = _categoryOfTimberService.GetCategoryOfTimber(id);
 			if (categoryOfTimber == null)
 			{
 				return NotFound();
@@ -159,19 +165,8 @@ namespace ForestrySystem.Controllers
 			{
 				return Problem("Entity set 'ApplicationDbContext.CategoryOfTimber'  is null.");
 			}
-			var categoryOfTimber = await _context.CategoryOfTimber.FindAsync(id);
-			if (categoryOfTimber != null)
-			{
-				_context.CategoryOfTimber.Remove(categoryOfTimber);
-			}
-
-			await _context.SaveChangesAsync();
+			await _categoryOfTimberService.DeleteCategoryOfTimber(id);
 			return RedirectToAction(nameof(Index));
-		}
-
-		private bool CategoryOfTimberExists(int id)
-		{
-			return _context.CategoryOfTimber.Any(e => e.Id == id);
 		}
 	}
 }

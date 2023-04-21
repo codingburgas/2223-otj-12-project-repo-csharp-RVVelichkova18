@@ -7,29 +7,48 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ForestrySystem.Data;
 using ForestrySystem.Models;
+using ForestrySystem.Services;
 
 namespace ForestrySystem.Controllers
 {
+	[Route("event")]
 	public class EventsController : Controller
 	{
 		private readonly ApplicationDbContext _context;
-
-		public EventsController(ApplicationDbContext context)
+		private readonly EventsService _eventsService;
+		public EventsController(ApplicationDbContext context, EventsService eventsService)
 		{
 			_context = context;
+			_eventsService = eventsService;
 		}
 
 		// GET: Events
 		public async Task<IActionResult> Index(string SearchString)
 		{
 			ViewData["CurrentFilter"] = SearchString;
-			var events = from evs in _context.Events
-						 select evs;
+			IQueryable<Events> events = _eventsService.GetEvents();
 			if (!String.IsNullOrEmpty(SearchString))
 			{
-				events = events.Where(x => x.Name.Contains(SearchString));
+				events = _eventsService.GetFilteredEvents(SearchString, events);
 			}
 			return View(events);
+		}
+
+		
+
+		[Route("findall")]
+		public async Task<IActionResult> FindAllEvents()
+		{
+			var events = _context.Events.Select(events => new
+			{
+				id = events.Id,
+				name = events.Name,
+				date = events.Date.ToString("dd/MM/yyyy"),
+				status = events.Status,
+				purpose = events.Purpose,
+				institution = events.Institutions,
+			}).ToList();
+			return new JsonResult(events);
 		}
 
 		// GET: Events/Details/5
@@ -40,8 +59,7 @@ namespace ForestrySystem.Controllers
 				return NotFound();
 			}
 
-			var events = await _context.Events
-				.FirstOrDefaultAsync(m => m.Id == id);
+			Events? events = await _eventsService.GetEvent(id);
 			if (events == null)
 			{
 				return NotFound();
@@ -49,6 +67,8 @@ namespace ForestrySystem.Controllers
 
 			return View(events);
 		}
+
+		
 
 		// GET: Events/Create
 		public IActionResult Create()
@@ -65,12 +85,13 @@ namespace ForestrySystem.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_context.Add(events);
-				await _context.SaveChangesAsync();
+				await _eventsService.CreateEvent(events);
 				return RedirectToAction(nameof(Index));
 			}
 			return View(events);
 		}
+
+		
 
 		// GET: Events/Edit/5
 		public async Task<IActionResult> Edit(int? id)
@@ -80,7 +101,7 @@ namespace ForestrySystem.Controllers
 				return NotFound();
 			}
 
-			var events = await _context.Events.FindAsync(id);
+			var events = await _eventsService.GetEvent(id);
 			if (events == null)
 			{
 				return NotFound();
@@ -104,12 +125,11 @@ namespace ForestrySystem.Controllers
 			{
 				try
 				{
-					_context.Update(events);
-					await _context.SaveChangesAsync();
+					await _eventsService.UpdateEvent(events);
 				}
 				catch (DbUpdateConcurrencyException)
 				{
-					if (!EventsExists(events.Id))
+					if (!_eventsService.EventsExists(events.Id))
 					{
 						return NotFound();
 					}
@@ -123,6 +143,8 @@ namespace ForestrySystem.Controllers
 			return View(events);
 		}
 
+		
+
 		// GET: Events/Delete/5
 		public async Task<IActionResult> Delete(int? id)
 		{
@@ -131,8 +153,7 @@ namespace ForestrySystem.Controllers
 				return NotFound();
 			}
 
-			var events = await _context.Events
-				.FirstOrDefaultAsync(m => m.Id == id);
+			var events = _eventsService.GetEvent(id);
 			if (events == null)
 			{
 				return NotFound();
@@ -150,19 +171,10 @@ namespace ForestrySystem.Controllers
 			{
 				return Problem("Entity set 'ApplicationDbContext.Events'  is null.");
 			}
-			var events = await _context.Events.FindAsync(id);
-			if (events != null)
-			{
-				_context.Events.Remove(events);
-			}
-
-			await _context.SaveChangesAsync();
+			await _eventsService.DeleteEvent(id);
 			return RedirectToAction(nameof(Index));
 		}
 
-		private bool EventsExists(int id)
-		{
-			return (_context.Events?.Any(e => e.Id == id)).GetValueOrDefault();
-		}
+
 	}
 }

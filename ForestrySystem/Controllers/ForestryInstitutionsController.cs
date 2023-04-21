@@ -27,13 +27,24 @@ namespace ForestrySystem.Controllers
 		{
 			//return View(await _context.Institutions.ToListAsync());
 			ViewData["CurrentFilter"] = SearchString;
-			var institutions = from inst in _context.Institutions
-							   select inst;
+			IQueryable<ForestryInstitution> institutions = GetForestIndustries();
 			if (!String.IsNullOrEmpty(SearchString))
 			{
-				institutions = institutions.Where(x => x.Name.Contains(SearchString));
+				institutions = GetFilteredForestIndustries(SearchString, institutions);
 			}
 			return View(institutions);
+		}
+
+		private static IQueryable<ForestryInstitution> GetFilteredForestIndustries(string SearchString, IQueryable<ForestryInstitution> institutions)
+		{
+			institutions = institutions.Where(x => x.Name.Contains(SearchString));
+			return institutions;
+		}
+
+		private IQueryable<ForestryInstitution> GetForestIndustries()
+		{
+			return from inst in _context.Institutions
+				   select inst;
 		}
 
 		// GET: ForestryInstitutions/Details/5
@@ -44,14 +55,19 @@ namespace ForestrySystem.Controllers
 				return NotFound();
 			}
 
-			var forestryInstitution = await _context.Institutions
-				.FirstOrDefaultAsync(m => m.Id == id);
+			ForestryInstitution? forestryInstitution = await GetForestIndustry(id);
 			if (forestryInstitution == null)
 			{
 				return NotFound();
 			}
 
 			return View(forestryInstitution);
+		}
+
+		private async Task<ForestryInstitution> GetForestIndustry(int? id)
+		{
+			return await _context.Institutions
+							.FirstOrDefaultAsync(m => m.Id == id);
 		}
 
 		// GET: ForestryInstitutions/Create
@@ -70,11 +86,16 @@ namespace ForestrySystem.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_context.Add(forestryInstitution);
-				await _context.SaveChangesAsync();
+				await CreateForestIndustry(forestryInstitution);
 				return RedirectToAction(nameof(Index));
 			}
 			return View(forestryInstitution);
+		}
+
+		private async Task CreateForestIndustry(ForestryInstitution forestryInstitution)
+		{
+			_context.Add(forestryInstitution);
+			await _context.SaveChangesAsync();
 		}
 
 		// GET: ForestryInstitutions/Edit/5
@@ -86,7 +107,7 @@ namespace ForestrySystem.Controllers
 				return NotFound();
 			}
 
-			var forestryInstitution = await _context.Institutions.FindAsync(id);
+			var forestryInstitution = await GetForestIndustry(id);
 			if (forestryInstitution == null)
 			{
 				return NotFound();
@@ -110,8 +131,7 @@ namespace ForestrySystem.Controllers
 			{
 				try
 				{
-					_context.Update(forestryInstitution);
-					await _context.SaveChangesAsync();
+					await UpdateForestIndustry(forestryInstitution);
 				}
 				catch (DbUpdateConcurrencyException)
 				{
@@ -129,6 +149,12 @@ namespace ForestrySystem.Controllers
 			return View(forestryInstitution);
 		}
 
+		private async Task UpdateForestIndustry(ForestryInstitution forestryInstitution)
+		{
+			_context.Update(forestryInstitution);
+			await _context.SaveChangesAsync();
+		}
+
 		// GET: ForestryInstitutions/Delete/5
 		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Delete(int? id)
@@ -138,8 +164,7 @@ namespace ForestrySystem.Controllers
 				return NotFound();
 			}
 
-			var forestryInstitution = await _context.Institutions
-				.FirstOrDefaultAsync(m => m.Id == id);
+			var forestryInstitution = await GetForestIndustry(id);
 			if (forestryInstitution == null)
 			{
 				return NotFound();
@@ -157,6 +182,12 @@ namespace ForestrySystem.Controllers
 			{
 				return Problem("Entity set 'ApplicationDbContext.Institutions'  is null.");
 			}
+			await DeleteForestIndustry(id);
+			return RedirectToAction(nameof(Index));
+		}
+
+		private async Task DeleteForestIndustry(int id)
+		{
 			var forestryInstitution = await _context.Institutions.FindAsync(id);
 			if (forestryInstitution != null)
 			{
@@ -164,7 +195,6 @@ namespace ForestrySystem.Controllers
 			}
 
 			await _context.SaveChangesAsync();
-			return RedirectToAction(nameof(Index));
 		}
 
 		private bool ForestryInstitutionExists(int id)

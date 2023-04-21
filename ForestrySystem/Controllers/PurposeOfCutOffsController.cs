@@ -55,7 +55,7 @@ namespace ForestrySystem.Controllers
 		}
 
 		// GET: PurposeOfCutOffs/Create
-		[Authorize(Roles = "Expert")]
+		[Authorize(Roles = "Expert,Admin")]
 		public IActionResult Create()
 		{
 			return View();
@@ -78,7 +78,7 @@ namespace ForestrySystem.Controllers
 		}
 
 		// GET: PurposeOfCutOffs/Edit/5
-		[Authorize(Roles = "Expert")]
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null || _context.PurposeOfCutOff == null)
@@ -130,7 +130,7 @@ namespace ForestrySystem.Controllers
 		}
 
 		// GET: PurposeOfCutOffs/Delete/5
-		[Authorize(Roles = "Expert")]
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Delete(int? id)
 		{
 			if (id == null || _context.PurposeOfCutOff == null)
