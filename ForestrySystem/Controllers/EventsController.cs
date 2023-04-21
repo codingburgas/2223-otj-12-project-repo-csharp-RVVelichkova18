@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using ForestrySystem.Data;
 using ForestrySystem.Models;
 using ForestrySystem.Services;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace ForestrySystem.Controllers
 {
@@ -68,9 +70,10 @@ namespace ForestrySystem.Controllers
 			return View(events);
 		}
 
-		
+
 
 		// GET: Events/Create
+		[Authorize(Roles = "Expert,Admin")]
 		public IActionResult Create()
 		{
 			return View();
@@ -91,9 +94,10 @@ namespace ForestrySystem.Controllers
 			return View(events);
 		}
 
-		
+
 
 		// GET: Events/Edit/5
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null || _context.Events == null)
@@ -114,6 +118,7 @@ namespace ForestrySystem.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Date,Status,Purpose,FIEventRefID")] Events events)
 		{
 			if (id != events.Id)
@@ -143,9 +148,10 @@ namespace ForestrySystem.Controllers
 			return View(events);
 		}
 
-		
+
 
 		// GET: Events/Delete/5
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Delete(int? id)
 		{
 			if (id == null || _context.Events == null)

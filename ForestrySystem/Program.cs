@@ -18,6 +18,8 @@ builder.Services.AddDefaultIdentity<AppUser>().AddDefaultTokenProviders().
 builder.Services.AddScoped<UserRolesService>();
 builder.Services.AddScoped<UserRolesService>();
 builder.Services.AddScoped<CategoryOfTimbersService>();
+builder.Services.AddScoped<EventsService>();
+builder.Services.AddScoped<ForestryInstitutionsService>();
 
 
 

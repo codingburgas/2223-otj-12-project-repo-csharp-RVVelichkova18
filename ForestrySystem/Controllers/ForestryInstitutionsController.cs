@@ -35,19 +35,10 @@ namespace ForestrySystem.Controllers
 			return View(institutions);
 		}
 
-		private static IQueryable<ForestryInstitution> GetFilteredForestIndustries(string SearchString, IQueryable<ForestryInstitution> institutions)
-		{
-			institutions = institutions.Where(x => x.Name.Contains(SearchString));
-			return institutions;
-		}
 
-		private IQueryable<ForestryInstitution> GetForestIndustries()
-		{
-			return from inst in _context.Institutions
-				   select inst;
-		}
 
 		// GET: ForestryInstitutions/Details/5
+
 		public async Task<IActionResult> Details(int? id)
 		{
 			if (id == null || _context.Institutions == null)
@@ -64,11 +55,7 @@ namespace ForestrySystem.Controllers
 			return View(forestryInstitution);
 		}
 
-		private async Task<ForestryInstitution> GetForestIndustry(int? id)
-		{
-			return await _context.Institutions
-							.FirstOrDefaultAsync(m => m.Id == id);
-		}
+
 
 		// GET: ForestryInstitutions/Create
 		[Authorize(Roles = "Expert,Admin")]
@@ -82,6 +69,7 @@ namespace ForestrySystem.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Create([Bind("Id,Name,Description,Location,TotalArea,GreenArea,UrbanizedArea,Email,Phone,Address")] ForestryInstitution forestryInstitution)
 		{
 			if (ModelState.IsValid)
@@ -92,11 +80,7 @@ namespace ForestrySystem.Controllers
 			return View(forestryInstitution);
 		}
 
-		private async Task CreateForestIndustry(ForestryInstitution forestryInstitution)
-		{
-			_context.Add(forestryInstitution);
-			await _context.SaveChangesAsync();
-		}
+
 
 		// GET: ForestryInstitutions/Edit/5
 		[Authorize(Roles = "Expert,Admin")]
@@ -120,6 +104,7 @@ namespace ForestrySystem.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Location,TotalArea,GreenArea,UrbanizedArea,Email,Phone,Address")] ForestryInstitution forestryInstitution)
 		{
 			if (id != forestryInstitution.Id)
@@ -149,11 +134,7 @@ namespace ForestrySystem.Controllers
 			return View(forestryInstitution);
 		}
 
-		private async Task UpdateForestIndustry(ForestryInstitution forestryInstitution)
-		{
-			_context.Update(forestryInstitution);
-			await _context.SaveChangesAsync();
-		}
+
 
 		// GET: ForestryInstitutions/Delete/5
 		[Authorize(Roles = "Expert,Admin")]
@@ -186,25 +167,11 @@ namespace ForestrySystem.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
-		private async Task DeleteForestIndustry(int id)
-		{
-			var forestryInstitution = await _context.Institutions.FindAsync(id);
-			if (forestryInstitution != null)
-			{
-				_context.Institutions.Remove(forestryInstitution);
-			}
 
-			await _context.SaveChangesAsync();
-		}
 
-		private bool ForestryInstitutionExists(int id)
+		public async Task<IActionResult> DisplayInstitution(int id)
 		{
-			return _context.Institutions.Any(e => e.Id == id);
-		}
-
-		public IActionResult DisplayInstitution(int id)
-		{
-			return View(_context.Institutions.Where(e => e.Id == id).First());
+			return View(await GetForestIndustry(id));
 		}
 	}
 }

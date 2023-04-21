@@ -106,7 +106,7 @@ namespace ForestrySystem.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[Authorize(Roles = "Expert")]
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Edit(int id, [Bind("Id,CategoryName,AmountForLogging,YearOfLogging")] CategoryOfTimber categoryOfTimber)
 		{
 			if (id != categoryOfTimber.Id)
@@ -136,10 +136,10 @@ namespace ForestrySystem.Controllers
 			return View(categoryOfTimber);
 		}
 
-		
+
 
 		// GET: CategoryOfTimbers/Delete/5
-		[Authorize(Roles = "Expert")]
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Delete(int? id)
 		{
 			if (id == null || _context.CategoryOfTimber == null)

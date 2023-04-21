@@ -60,7 +60,7 @@ namespace ForestrySystem.Controllers
 		}
 
 		// GET: TypeOfWoods/Create
-		[Authorize(Roles = "Expert")]
+		[Authorize(Roles = "Expert,Admin")]
 		public IActionResult Create() => View();
 
 		// POST: TypeOfWoods/Create
@@ -79,7 +79,7 @@ namespace ForestrySystem.Controllers
 		}
 
 		// GET: TypeOfWoods/Edit/5
-		[Authorize(Roles = "Expert")]
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null || _context.WoodTypes == null)
@@ -133,7 +133,7 @@ namespace ForestrySystem.Controllers
 		}
 
 		// GET: TypeOfWoods/Delete/5
-		[Authorize(Roles = "Expert")]
+		[Authorize(Roles = "Expert,Admin")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			if (id == null || _context.WoodTypes == null)
