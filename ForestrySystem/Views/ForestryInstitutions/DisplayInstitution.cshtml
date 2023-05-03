@@ -20,37 +20,31 @@
             <p><strong>Location:</strong> @Model.institution.Location</p>
             <p><strong>Phone:</strong> @Model.institution.Phone</p>
             <p><strong>Description:</strong> @Model.institution.Description</p>
-            <div id="map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7325.687993273408!2d27.402337617736844!3d42.45285393459321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a6eb7e8a995853%3A0x9f3b508a4516b2ad!2sProfessional%20Technical%20School!5e0!3m2!1sen!2sbg!4v1680857892574!5m2!1sen!2sbg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-
-
-            <h2>Данни за общата сеч по категории</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2951.710964205137!2d27.549058615453976!3d42.2846928791921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a6db5451ee0059%3A0x166d96a5fed55b18!2z0JTQqtCg0JbQkNCS0J3QniDQk9Ce0KDQodCa0J4g0KHQotCe0J_QkNCd0KHQotCS0J4g0J3QntCS0J4g0J_QkNCd0JjQp9CQ0KDQldCS0J4!5e0!3m2!1sen!2sbg!4v1683116828592!5m2!1sen!2sbg" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+       @*     <h2>Данни за общата сеч по категории дървесина и дървесен вид</h2>
             <div class="form-group">
                 <label asp-for="categoryOfTimber" class="control-label">Категория:</label>
                 <select asp-for="categoryOfTimber" class="form-select" asp-items="Html.GetEnumSelectList<CategoryOfTimberEnum>()">
                 </select>
             </div>
-
+            <div class="form-group">
+                <label asp-for="TimberName" class="control-label">Вид:</label>
+                <select asp-for="TimberName" class="form-select" asp-items="Html.GetEnumSelectList<OriginEnum>()">
+                </select>
+            </div>*@
 
             <h2>Данни за общата сеч по години</h2>
             <div class="form-group">
-                <label asp-for="Year">Категория:</label>
+                <label asp-for="Year">Година:</label>
                 <select asp-for="Year" class="form-select">
                     <option value="2020">2020</option>
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
-                    <option value="2023">2022</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="TimberName" class="control-label">Категория:</label>
-                <select asp-for="TimberName" class="form-select" asp-items="Html.GetEnumSelectList<OriginEnum>()">
+                    <option value="2023">2023</option>
                 </select>
             </div>
 
             <input type="submit" value="Submit" class="btn btn-success" />
-
-
 
         </div>
     </form>

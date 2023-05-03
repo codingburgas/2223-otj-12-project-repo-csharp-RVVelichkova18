@@ -28,4 +28,8 @@
     <ProjectReference Include="..\ForestrySystem.Services\ForestrySystem.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\maps\" />
+  </ItemGroup>
+
 </Project>

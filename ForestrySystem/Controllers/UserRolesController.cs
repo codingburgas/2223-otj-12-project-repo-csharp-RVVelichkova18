@@ -9,28 +9,35 @@ using System.Data;
 
 namespace ForestrySystem.Controllers
 {
-	[Authorize(Roles = "Admin")]
-	public class UserRolesController : Controller
-	{
-		private ApplicationDbContext _context;
-		private readonly UserManager<AppUser> _userManager;
-		private readonly RoleManager<IdentityRole> _roleManager;
-		private readonly UserRolesService _userRolesService;
-		//constructor dependency injection
-		public UserRolesController(ApplicationDbContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
-		{
-			_roleManager = roleManager;
-			_userManager = userManager;
-			_context = context;
-		}
-
-		public UserRolesController(UserRolesService userRolesService)
-		{
-			_userRolesService = userRolesService;
-		}
-		public async Task<IActionResult> Index()
+    [Authorize(Roles = "Admin")]
+    public class UserRolesController : Controller
+    {
+        private ApplicationDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserRolesService _userRolesService;
+        //constructor dependency injection
+        public UserRolesController(UserRolesService userRolesService, ApplicationDbContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            List<UserRolesViewModel> userRolesViewModel = await _userRolesService.GetUsers();
+            _roleManager = roleManager;
+            _userManager = userManager;
+            _context = context;
+            _userRolesService = userRolesService;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var users = await _userRolesService.GetUsersAsync();
+            var userRolesViewModel = new List<UserRolesViewModel>();
+            foreach (AppUser user in users)
+            {
+                var thisViewModel = new UserRolesViewModel();
+                thisViewModel.UserId = user.Id;
+                thisViewModel.Email = user.Email;
+                thisViewModel.FirstName = user.firstName;
+                thisViewModel.LastName = user.lastName;
+                thisViewModel.Roles = await _userRolesService.GetUserRolesAsync(user);
+                userRolesViewModel.Add(thisViewModel);
+            }
             return View(userRolesViewModel);
         }
 
@@ -50,7 +57,7 @@ namespace ForestrySystem.Controllers
         }
 
         [HttpPost]
-		public async Task<IActionResult> Manage(List<ManageUserRolesViewModel> model, string userId)
+        public async Task<IActionResult> Manage(List<ManageUserRolesViewModel> model, string userId)
         {
             var user = await _userRolesService.GetUser(userId);
             if (user == null)
@@ -72,13 +79,13 @@ namespace ForestrySystem.Controllers
             return RedirectToAction("Index");
         }
 
-        
+
 
         public async Task<IActionResult> Delete(List<ManageUserRolesViewModel> model, string Id)
-		{
-			var UserToDelete = await _userRolesService.GetUser(Id);
+        {
+            var UserToDelete = await _userRolesService.GetUser(Id);
 
-			if (UserToDelete != null)
+            if (UserToDelete != null)
             {
                 IdentityResult result = await _userRolesService.DeleteUser(UserToDelete);
                 if (result.Succeeded)
@@ -87,7 +94,7 @@ namespace ForestrySystem.Controllers
                 }
             }
             return RedirectToAction("Index");
-		}
+        }
 
     }
 }
