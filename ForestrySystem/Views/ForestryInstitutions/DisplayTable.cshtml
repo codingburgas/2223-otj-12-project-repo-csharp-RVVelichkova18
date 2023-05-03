@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ForestrySystem.Models.TypeOfTimber>
+
+    @{
+    ViewData["Title"] = "Display Table";
+    }
+
+
+    <h1>Display Table</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>TypeOfTimber</th>
+                    <th>Amount</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model){
+                <tr>
+                    <td>@item.TimberName</td>
+                    <td>@item.AmountForLogging</td>
+                    <td>@item.YearOfLogging</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+  

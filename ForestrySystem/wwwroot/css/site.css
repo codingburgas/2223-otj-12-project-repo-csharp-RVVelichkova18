@@ -11,7 +11,8 @@ html {
 }
 
 body {
-    margin:0;
+    margin:60px;
+    margin-top:30px;
 }
 
 /* Slideshow container */
