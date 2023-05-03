@@ -19,26 +19,24 @@ namespace ForestrySystem.Controllers
 	{
 		private readonly TypeOfWoodsService _typeOfWoodService;
 		private ApplicationDbContext _context;
-		private readonly TypeOfWood _typeOfWood;
-		public TypeOfWoodsController(TypeOfWoodsService typeOfWoodService)
+        private readonly ImagesService _imgService;
+        public TypeOfWoodsController(TypeOfWoodsService typeOfWoodService, ApplicationDbContext context, ImagesService imgService)
 		{
 			_typeOfWoodService = typeOfWoodService;
+			_context = context;
+			this._imgService = imgService;
 		}
 
-		public TypeOfWoodsController(TypeOfWood typeOfWood)
-		{
-			_typeOfWood = typeOfWood;
-		}
-		public TypeOfWoodsController(ApplicationDbContext context)
-		{
-			_context = context;
-		}
 		// GET: TypeOfWoods
 		public async Task<IActionResult> Index(string SearchString, string sortOrder)
 		{
-			ViewData["CurrentFilter"] = SearchString;
-
-			return View();
+            ViewData["CurrentFilter"] = SearchString;
+            IQueryable<TypeOfWood> types = _typeOfWoodService.GetTypeOfWood();
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                types = _typeOfWoodService.GetFilteredTypeOfWood(SearchString, types);
+            }
+            return View(types);
 		}
 
 		// GET: TypeOfWoods/Details/5
@@ -165,7 +163,13 @@ namespace ForestrySystem.Controllers
             await _typeOfWoodService.DeleteTypeOfWood(id);
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        public IActionResult AddImage(IFormFile file)
+        {
+            _imgService.UploadFileAsync(file).Wait();
+            return RedirectToAction(nameof(Index));
+        }
 
-        
+
     }
 }

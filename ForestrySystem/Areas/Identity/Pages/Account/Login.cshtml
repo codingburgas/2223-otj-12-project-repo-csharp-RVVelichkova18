@@ -32,17 +32,20 @@
                     </div>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-success">ВХОД</button>
                 </div>
                 <div>
+                    <br/>
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a class="alert alert-success" id="forgot-password" asp-page="./ForgotPassword">Забравена парола</a>
                     </p>
+                    <br/>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Регистрация на нов потребител</a>
+                        <a class="alert alert-success" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Регистрация на нов потребител</a>
                     </p>
+                    <br/>
                     <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Прати имейл за потвърждение</a>
+                        <a class="alert alert-success" id="resend-confirmation" asp-page="./ResendEmailConfirmation">Прати имейл за потвърждение</a>
                     </p>
                 </div>
             </form>

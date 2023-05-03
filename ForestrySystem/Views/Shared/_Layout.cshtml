@@ -8,13 +8,45 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ForestrySystem.styles.css" asp-append-version="true" />
 </head>
-<body>
+
+<header>
+    <nav class="fill navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow">
+        <div class="container-fluid">
+            <img src="~/images/logo.jpg" alt="Logo Image" style="width:300px;height:70px;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Events" asp-action="Index">Новини и Събития</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="ForestryInstitutions" asp-action="Index">Институции</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="PurposeOfCutOffs" asp-action="Index">Регулации</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <partial name="_LoginPartial" />
+    </nav>
+</header>
+
+
+@if (User.IsInRole("Admin") || User.IsInRole("Expert"))
+{
     <header>
         <nav class="fill navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow">
             <div class="container-fluid">
                 <img src="~/images/logo.jpg" alt="Logo Image" style="width:300px;height:70px;">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -28,8 +60,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="ForestryInstitutions" asp-action="Index">Институции</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="PurposeOfCutOffs" asp-action="Index">Регулации</a>
+                        <li>
+                            <a class="nav-link text-light" asp-area="" asp-controller="UserRoles" asp-action="Index">Потребители</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Горски характеристики
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item nav-link" asp-area="" asp-controller="PurposeOfCutOffs" asp-action="Index">Регулации</a></li>
+                                <li><a class="dropdown-item nav-link" asp-area="" asp-controller="TypeOfTimbers" asp-action="Index">Видове сечи</a></li>
+                                <li><a class="dropdown-item nav-link" asp-area="" asp-controller="TypeOfWoods" asp-action="Index">Дървесни видове</a></li>
+                                <li><a class="dropdown-item nav-link" asp-area="" asp-controller="CategoryOfTimbers" asp-action="Index">Категория дъвесина</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -37,57 +80,16 @@
             <partial name="_LoginPartial" />
         </nav>
     </header>
+}
+<div>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
 
-    
-    @if (User.IsInRole("Admin") || User.IsInRole("Expert"))
-    {
-        <header>
-            <nav class="fill navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow">
-                <div class="container-fluid">
-                    <img src="~/images/logo.jpg" alt="Logo Image" style="width:300px;height:70px;">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Events" asp-action="Index">Новини и Събития</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="ForestryInstitutions" asp-action="Index">Институции</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="PurposeOfCutOffs" asp-action="Index">Регулации</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="TypeOfTimbers" asp-action="Index">Видове сечи</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="TypeOfWoods" asp-action="Index">Дървесни видове</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="CategoryOfTimbers" asp-action="Index">Категория дъвесина</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <partial name="_LoginPartial" />
-            </nav>
-        </header>
-    }
-    <div>
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
 </html>

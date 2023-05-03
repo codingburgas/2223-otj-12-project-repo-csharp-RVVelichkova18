@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="~/js/site.js" asp-append-version="true" />
 	<link rel="stylesheet" href="~/ForestrySystem.styles.css" asp-append-version="true" />
 </head>
-<body>
+
 	<header>
 		<!-- Banner Section -->
 		<section id="banner">
@@ -33,14 +33,17 @@
 					</div>
 					<a class="prev" onclick="plusSlides(-1)">❮</a>
 					<a class="next" onclick="plusSlides(1)">❯</a>
-			
-			
-		</section>
+
+
+    </section>
+
 
 		<!-- Information section -->
+		</br>
 		<section class="information">
 			<div class="container">
-				<h2>Информация</h2>
+                <center><h2>Информация</h2></center>
+				</br>
 				<div class="row">
 					<div class="col-md-6">
 						<i class="fas fa-tree fa-3x"></i>
@@ -54,25 +57,6 @@
 					</div>
 				</div>
 			</div>
-		</section>
-		<h2>Добавете снимка на зелени зони, която да публикуваме на нашата страница</h2>
-		<div class="container">
-		<div class="row">
-			<div class="col-md-4">
-				<form asp-action="Create" method="post" enctype="multipart/form-data">
-					<div class="form-group">
-						<label  class="form-label"></label>
-						<input  type="file" name="file" class="form-control" multiple />
-					</div>
-
-					<div class="form-group">
-						<input type="submit" value="Прикачи" class="btn btn-primary" />
-					</div>
-				</form>
-			</div>
-		</div>
-		</div>
-		
+    </section>
 </header>
-</body>
 </html>

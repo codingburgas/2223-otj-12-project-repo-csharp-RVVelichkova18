@@ -21,13 +21,7 @@ namespace ForestrySystem.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Create(IFormFile file)
-        {
-            _imgService.UploadFileAsync(file).Wait();
-            return RedirectToAction(nameof(Index));
-        }
-
+      
         public IActionResult Privacy()
         {
             return View();

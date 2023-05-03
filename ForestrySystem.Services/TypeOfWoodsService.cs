@@ -17,7 +17,23 @@ namespace ForestrySystem.Services
 		{ 
 			_context = context;	
 		}
-		public async Task<TypeOfWood> GetTypeOfWoodById(int id) 
+        public IQueryable<TypeOfWood> GetFilteredTypeOfWood(string SearchString, IQueryable<TypeOfWood> types)
+        {
+            types = types.Where(x => x.SpeciesName.ToString().Contains(SearchString));
+            return types;
+        }
+
+        public IQueryable<TypeOfWood> GetTypeOfWood()
+        {
+            return from t in _context.WoodTypes
+                   select t;
+        }
+        public async Task<TypeOfWood> GetTypeOfWood(int? id)
+        {
+            return await _context.WoodTypes
+                            .FirstOrDefaultAsync(m => m.Id == id);
+        }
+        public async Task<TypeOfWood> GetTypeOfWoodById(int id) 
 		{
 			var typeOfWood = await _context.WoodTypes.FirstOrDefaultAsync(m => m.Id == id);
 			return typeOfWood;

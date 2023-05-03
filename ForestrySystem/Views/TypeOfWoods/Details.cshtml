@@ -4,10 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Детайли</h1>
 
 <div>
-    <h4>TypeOfWood</h4>
+    <h4>Дървесен вид</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -37,6 +37,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="alert alert-success" asp-action="Edit" asp-route-id="@Model?.Id">Редакция</a> |
+    <a class="alert alert-success"  asp-action="Index">Обратно към предходната страница</a>
 </div>

@@ -4,10 +4,26 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Страница за редакция на данни за дървесен вид</h1>
+<center><h2>Добавете снимка на дървесни видове, която да публикуваме на нашата страница</h2></center>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label  class="form-label"></label>
+                        <input  type="file" name="file" class="form-control" multiple />
+                    </div>
 
+                    <div class="form-group">
+                        <input type="submit" value="Прикачи" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="alert alert-success" asp-action="Create">Добави нов запис</a>
 </p>
 <table class="table">
     <thead>
@@ -43,9 +59,9 @@
                 @Html.DisplayFor(modelItem => item.YearOfLogging)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="alert alert-success" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> 
+                    <a class="alert alert-success" asp-action="Details" asp-route-id="@item.Id">Детайли</a> 
+                    <a class="alert alert-success" asp-action="Delete" asp-route-id="@item.Id">Изтриване</a>
             </td>
         </tr>
 }
