@@ -61,12 +61,9 @@
                 @Html.DisplayFor(modelItem => item.YearOfLogging)
             </td>
             <td>
-                    <a class="alert alert-success" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a>
-                    <br>
-                    <a class="alert alert-success" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
-                    <br>
-                    <a class="alert alert-success" asp-action="Delete" asp-route-id="@item.Id">Изтриване</a>
-                    <br>
+                   <a class="link-success" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a>
+                    <a class="link-success" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
+                    <a class="link-success" asp-action="Delete" asp-route-id="@item.Id">Изтриване</a>
             </td>
         </tr>
 }
