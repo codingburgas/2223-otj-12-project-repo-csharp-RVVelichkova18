@@ -4,10 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Страница за редакция на данни за видовете сечи</h1>
 
+<br>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="alert alert-success" asp-action="Create">Добави нов запис</a>
 </p>
 <table class="table">
     <thead>
@@ -37,9 +38,9 @@
                 @Html.DisplayFor(modelItem => item.YearOfLogging)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="link-success" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a>
+                    <a class="link-success" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
+                    <a class="link-success" asp-action="Delete" asp-route-id="@item.Id">Изтриване</a>
             </td>
         </tr>
 }
