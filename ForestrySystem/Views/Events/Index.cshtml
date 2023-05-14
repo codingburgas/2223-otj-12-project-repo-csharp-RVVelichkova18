@@ -4,52 +4,84 @@
     ViewData["Title"] = "Index";
 }
 
- <h1>Страница за редакция на данни за събития</h1>
+<h1>Календар за събитията вписани в системата</h1>
+<table class="table table-hover">
+    
+            <tr>
+                 @foreach (var item in Model)
+        {
+                <th>
+                    <a class="nav-link text-success text-md-left" asp-area="" asp-route-id="@item.Id">@item.Name</a>
+                </th>
+                <th>
+                    <a class="nav-link text-success text-md-left" asp-area="" asp-route-id="@item.Id">@item.Status</a>
+                </th>
+                <th>
+                    <a class="nav-link text-success text-md-left" asp-area="" asp-route-id="@item.Id">@item.Date</a>
+                </th>
+                <th>
+                    <a class="nav-link text-success text-md-left" asp-area="" asp-route-id="@item.Id">@item.Purpose</a>
+                </th>
+        <th>
+            <a class="nav-link text-success text-md-left" asp-area="" asp-route-id="@item.Id">@item.Institutions</a>
+        </th>}
+            </tr>
+
+   
+</table>
+
+
+@if (User.IsInRole("Admin") || User.IsInRole("Expert"))
+{
+
+    <h1>Страница за редакция на данни за събития</h1>
 
     <br>
     <p>
         <a class="alert alert-success" asp-action="Create">Добави нов запис</a>
     </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Purpose)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FIEventRefID)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Purpose)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FIEventRefID)
-                </td>
-                <td>
-                   <a class="link-success" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a>
-                    <a class="link-success" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
-                    <a class="link-success" asp-action="Delete" asp-route-id="@item.Id">Изтриване</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Purpose)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FIEventRefID)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Purpose)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FIEventRefID)
+                    </td>
+                    <td>
+                        <a class="link-success" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a>
+                        <a class="link-success" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
+                        <a class="link-success" asp-action="Delete" asp-route-id="@item.Id">Изтриване</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
 </table>
+}

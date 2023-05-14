@@ -15,25 +15,14 @@
     <form asp-action="DisplayInstitution" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="container">
-            <h1>@Model.institution.Name</h1>
+            
+            
+            <center><h1>@Model.institution.Name</h1></center>
 
-            <p><strong>Location:</strong> @Model.institution.Location</p>
-            <p><strong>Phone:</strong> @Model.institution.Phone</p>
-            <p><strong>Description:</strong> @Model.institution.Description</p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2951.710964205137!2d27.549058615453976!3d42.2846928791921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a6db5451ee0059%3A0x166d96a5fed55b18!2z0JTQqtCg0JbQkNCS0J3QniDQk9Ce0KDQodCa0J4g0KHQotCe0J_QkNCd0KHQotCS0J4g0J3QntCS0J4g0J_QkNCd0JjQp9CQ0KDQldCS0J4!5e0!3m2!1sen!2sbg!4v1683116828592!5m2!1sen!2sbg" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-       @*     <h2>Данни за общата сеч по категории дървесина и дървесен вид</h2>
-            <div class="form-group">
-                <label asp-for="categoryOfTimber" class="control-label">Категория:</label>
-                <select asp-for="categoryOfTimber" class="form-select" asp-items="Html.GetEnumSelectList<CategoryOfTimberEnum>()">
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimberName" class="control-label">Вид:</label>
-                <select asp-for="TimberName" class="form-select" asp-items="Html.GetEnumSelectList<OriginEnum>()">
-                </select>
-            </div>*@
-
-            <h2>Данни за общата сеч по години</h2>
+            <p><strong>Адрес:</strong> @Model.institution.Location</p>
+            <p><strong>Контакти:</strong> @Model.institution.Phone</p>
+            <p><strong>Описание:</strong> @Model.institution.Description</p>
+            <h2>Справка за общата сеч по години</h2>
             <div class="form-group">
                 <label asp-for="Year">Година:</label>
                 <select asp-for="Year" class="form-select">
@@ -47,6 +36,22 @@
             <input type="submit" value="Submit" class="btn btn-success" />
 
         </div>
+            <center><h1>Карта</h1></center>
+            <img src="~/images/map.jpg" class="d-block w-100">
+            <center><h1>Адрес</h1></center>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2951.710964205137!2d27.549058615453976!3d42.2846928791921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a6db5451ee0059%3A0x166d96a5fed55b18!2z0JTQqtCg0JbQkNCS0J3QniDQk9Ce0KDQodCa0J4g0KHQotCe0J_QkNCd0KHQotCS0J4g0J3QntCS0J4g0J_QkNCd0JjQp9CQ0KDQldCS0J4!5e0!3m2!1sen!2sbg!4v1683116828592!5m2!1sen!2sbg" class="d-block w-100" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+       @*     <h2>Данни за общата сеч по категории дървесина и дървесен вид</h2>
+            <div class="form-group">
+                <label asp-for="categoryOfTimber" class="control-label">Категория:</label>
+                <select asp-for="categoryOfTimber" class="form-select" asp-items="Html.GetEnumSelectList<CategoryOfTimberEnum>()">
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimberName" class="control-label">Вид:</label>
+                <select asp-for="TimberName" class="form-select" asp-items="Html.GetEnumSelectList<OriginEnum>()">
+                </select>
+            </div>*@
+
     </form>
 
 </body>
