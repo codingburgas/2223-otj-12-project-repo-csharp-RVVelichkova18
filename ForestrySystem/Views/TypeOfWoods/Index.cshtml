@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ForestrySystem.Models.TypeOfWood>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Страница за редакция на данни за дървесен вид</h1>
+<br>
+<center><h2>Добавете снимка на дървесни видове, която да публикуваме на нашата страница</h2></center>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label  class="form-label"></label>
+                        <input  type="file" name="file" class="form-control" multiple />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Прикачи" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+<br>
+<p>
+    <a class="alert alert-success" asp-action="Create">Добави нов запис</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SpeciesName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Origin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AmountForLogging)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearOfLogging)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpeciesName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Origin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountForLogging)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearOfLogging)
+            </td>
+            <td>
+                   <a class="link-success" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a>
+                    <a class="link-success" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
+                    <a class="link-success" asp-action="Delete" asp-route-id="@item.Id">Изтриване</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		@{
+			ViewData["Title"] = "Home Page";
+		}
+	</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/js/site.js" asp-append-version="true" />
+	<link rel="stylesheet" href="~/ForestrySystem.styles.css" asp-append-version="true" />
+</head>
+
+	<header>
+		<!-- Banner Section -->
+		<section id="banner">
+					<div class="mySlides">
+						<img src="~/images/banner-dgs-novo-panicharevo.jpg" class="d-block w-100" alt="Banner 1">
+						<div class="centered">Добре дошли в GreenVision!</div>
+					</div>
+					<div class="mySlides">
+						<img src="~/images/forest-three.jpg" class="d-block w-100" alt="Banner 2">
+						<div class="centered">Добре дошли в GreenVision!</div>
+					</div>
+					<div class="mySlides">
+						<img src="~/images/forest-four.jpg" class="d-block w-100" alt="Banner 3">
+						<div class="centered">Добре дошли в GreenVision!</div>
+					</div>
+					<a class="prev" onclick="plusSlides(-1)">❮</a>
+					<a class="next" onclick="plusSlides(1)">❯</a>
+
+
+    </section>
+
+
+		<!-- Information section -->
+		</br>
+		<section class="information">
+			<div class="container">
+                <center><h2>Информация</h2></center>
+				</br>
+				<div class="row">
+					<div class="col-md-6">
+						<i class="fas fa-tree fa-3x"></i>
+						<h3>Цели</h3>
+						<p>Главната функция на платформата е да определя какви видове и какво количество сеч е допустимо спрямо площта и обема на горските площи и какъв процент от тях да бъде разпределен за продажба на складове и цехове в страната, за износ и за местните потребители. </p>
+					</div>
+					<div class="col-md-6">
+						<i class="fas fa-leaf fa-3x"></i>
+						<h3>Аудитория</h3>
+						<p>Проектът е предназначен за организации и лица, свързани с горското стопанство и управлението на зелените зони в страната. Това могат да бъдат горски инженери, горски стопани, дърводобивни дружества, административни институции и други заинтересовани граждани.</p>
+					</div>
+				</div>
+			</div>
+    </section>
+</header>
+</html>

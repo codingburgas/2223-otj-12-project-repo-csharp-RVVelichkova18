@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ForestrySystem.Models.TypeOfTimber>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Страница за редакция на данни за видовете сечи</h1>
+
+<br>
+<p>
+    <a class="alert alert-success" asp-action="Create">Добави нов запис</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TimberName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AmountForLogging)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearOfLogging)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimberName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountForLogging)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearOfLogging)
+            </td>
+            <td>
+                    <a class="link-success" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a>
+                    <a class="link-success" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
+                    <a class="link-success" asp-action="Delete" asp-route-id="@item.Id">Изтриване</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
